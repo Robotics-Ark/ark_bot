@@ -1,0 +1,97 @@
+BROADCAST_ID = 0xFE  # 254
+MAX_ID = 0xFC  # 252
+STS_END = 0
+
+# Instruction for STS Protocol
+INST_PING = 1
+INST_READ = 2
+INST_WRITE = 3
+INST_REG_WRITE = 4
+INST_ACTION = 5
+INST_SYNC_WRITE = 131  # 0x83
+INST_SYNC_READ = 130  # 0x82
+
+# Communication Result
+COMM_SUCCESS = 0  # tx or rx packet communication success
+COMM_PORT_BUSY = -1  # Port is busy (in use)
+COMM_TX_FAIL = -2  # Failed transmit instruction packet
+COMM_RX_FAIL = -3  # Failed get status packet
+COMM_TX_ERROR = -4  # Incorrect instruction packet
+COMM_RX_WAITING = -5  # Now recieving status packet
+COMM_RX_TIMEOUT = -6  # There is no status packet
+COMM_RX_CORRUPT = -7  # Incorrect status packet
+COMM_NOT_AVAILABLE = -9  #
+
+
+TXPACKET_MAX_LEN = 250
+RXPACKET_MAX_LEN = 250
+
+# for Protocol Packet
+PKT_HEADER0 = 0
+PKT_HEADER1 = 1
+PKT_ID = 2
+PKT_LENGTH = 3
+PKT_INSTRUCTION = 4
+PKT_ERROR = 4
+PKT_PARAMETER0 = 5
+
+# Protocol Error bit
+ERRBIT_VOLTAGE = 1
+ERRBIT_ANGLE = 2
+ERRBIT_OVERHEAT = 4
+ERRBIT_OVERELE = 8
+ERRBIT_OVERLOAD = 32
+
+
+# Baud rate definition
+STS_1M = 0
+STS_0_5M = 1
+STS_250K = 2
+STS_128K = 3
+STS_115200 = 4
+STS_76800 = 5
+STS_57600 = 6
+STS_38400 = 7
+
+# Memory table definition
+#-------EPROM(Read Only)--------
+STS_MODEL_L = 3
+STS_MODEL_H = 4
+
+#-------EPROM(Read and Write)--------
+STS_ID = 5
+STS_BAUD_RATE = 6
+STS_MIN_ANGLE_LIMIT_L = 9
+STS_MIN_ANGLE_LIMIT_H = 10
+STS_MAX_ANGLE_LIMIT_L = 11
+STS_MAX_ANGLE_LIMIT_H = 12
+STS_CW_DEAD = 26
+STS_CCW_DEAD = 27
+STS_OFS_L = 31
+STS_OFS_H = 32
+STS_MODE = 33
+
+#-------SRAM(Read and Write)--------
+STS_TORQUE_ENABLE = 40
+STS_ACC = 41
+STS_GOAL_POSITION_L = 42
+STS_GOAL_POSITION_H = 43
+STS_GOAL_TIME_L = 44
+STS_GOAL_TIME_H = 45
+STS_GOAL_SPEED_L = 46
+STS_GOAL_SPEED_H = 47
+STS_LOCK = 55
+
+#-------SRAM(Read Only)--------
+STS_PRESENT_POSITION_L = 56
+STS_PRESENT_POSITION_H = 57
+STS_PRESENT_SPEED_L = 58
+STS_PRESENT_SPEED_H = 59
+STS_PRESENT_LOAD_L = 60
+STS_PRESENT_LOAD_H = 61
+STS_PRESENT_VOLTAGE = 62
+STS_PRESENT_TEMPERATURE = 63
+STS_MOVING = 66
+STS_ABSPOS = 67
+STS_PRESENT_CURRENT_L = 69
+STS_PRESENT_CURRENT_H = 70
