@@ -97,49 +97,49 @@
     <self_collide>true</self_collide>
     <gravity>true</gravity>
   </gazebo>
-  <gazebo reference="Link1_v2_1">
+  <gazebo reference="Link1">
     <material>Gazebo/Silver</material>
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <self_collide>true</self_collide>
   </gazebo>
-  <gazebo reference="link2_v2_1">
+  <gazebo reference="link2">
     <material>Gazebo/Silver</material>
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <self_collide>true</self_collide>
   </gazebo>
-  <gazebo reference="link3_v2_1">
+  <gazebo reference="link3">
     <material>Gazebo/Silver</material>
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <self_collide>true</self_collide>
   </gazebo>
-  <gazebo reference="link4_v2_1">
+  <gazebo reference="link4">
     <material>Gazebo/Silver</material>
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <self_collide>true</self_collide>
   </gazebo>
-  <gazebo reference="link5_v2_1">
+  <gazebo reference="link5">
     <material>Gazebo/Silver</material>
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <self_collide>true</self_collide>
   </gazebo>
-  <gazebo reference="Hand_v2_1">
+  <gazebo reference="Hand">
     <material>Gazebo/Silver</material>
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <self_collide>true</self_collide>
   </gazebo>
-  <gazebo reference="finger_v2_1">
+  <gazebo reference="finger1">
     <material>Gazebo/Silver</material>
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <self_collide>true</self_collide>
   </gazebo>
-  <gazebo reference="finger_v2__1__1">
+  <gazebo reference="finger2">
     <material>Gazebo/Silver</material>
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
@@ -165,7 +165,7 @@
       </geometry>
     </collision>
   </link>
-  <link name="Link1_v2_1">
+  <link name="Link1">
     <inertial>
       <origin rpy="0 0 0" xyz="-8.789698917545885e-07 -0.00209324666321261 0.06034546164127977"/>
       <mass value="3.55259145758094"/>
@@ -185,7 +185,7 @@
       </geometry>
     </collision>
   </link>
-  <link name="link2_v2_1">
+  <link name="link2">
     <inertial>
       <origin rpy="0 0 0" xyz="4.5648705801939816e-05 0.017680813699606 0.1474793511706172"/>
       <mass value="4.329966529786294"/>
@@ -205,7 +205,7 @@
       </geometry>
     </collision>
   </link>
-  <link name="link3_v2_1">
+  <link name="link3">
     <inertial>
       <origin rpy="0 0 0" xyz="-1.847661592824805e-05 -0.02606315938822895 0.06299775440518512"/>
       <mass value="3.239056584746587"/>
@@ -225,7 +225,7 @@
       </geometry>
     </collision>
   </link>
-  <link name="link4_v2_1">
+  <link name="link4">
     <inertial>
       <origin rpy="0 0 0" xyz="0.0005635271959570314 0.023726686595274354 0.04715061702801071"/>
       <mass value="1.7025158483719638"/>
@@ -245,7 +245,7 @@
       </geometry>
     </collision>
   </link>
-  <link name="link5_v2_1">
+  <link name="link5">
     <inertial>
       <origin rpy="0 0 0" xyz="7.240975234131843e-05 0.000377618306209547 0.02592927980852644"/>
       <mass value="0.6135827464240919"/>
@@ -265,7 +265,7 @@
       </geometry>
     </collision>
   </link>
-  <link name="Hand_v2_1">
+  <link name="Hand">
     <inertial>
       <origin rpy="0 0 0" xyz="-7.861406339096539e-05 0.02320812243170746 0.06508389882077914"/>
       <mass value="2.2197201602974554"/>
@@ -285,7 +285,7 @@
       </geometry>
     </collision>
   </link>
-  <link name="finger_v2_1">
+  <link name="finger1">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.004999628701543117 -0.015384046201054255 0.015310449682612193"/>
       <mass value="0.653538155273753"/>
@@ -305,7 +305,7 @@
       </geometry>
     </collision>
   </link>
-  <link name="finger_v2__1__1">
+  <link name="finger2">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.00499962868826751 0.015383111119019108 0.015310449682611749"/>
       <mass value="0.6535381552737535"/>
@@ -328,54 +328,54 @@
   <joint name="Revolute 1" type="continuous">
     <origin rpy="0 0 0" xyz="0.0 0.06 0.046"/>
     <parent link="base_link"/>
-    <child link="Link1_v2_1"/>
+    <child link="Link1"/>
     <axis xyz="0.0 0.0 -1.0"/>
   </joint>
   <joint name="Revolute 2" type="revolute">
     <origin rpy="0 0 0" xyz="-0.0 0.0 0.103"/>
-    <parent link="Link1_v2_1"/>
-    <child link="link2_v2_1"/>
+    <parent link="Link1"/>
+    <child link="link2"/>
     <axis xyz="-0.0 1.0 0.0"/>
     <limit effort="100" lower="-2.268928" upper="2.268928" velocity="100"/>
   </joint>
   <joint name="Revolute 3" type="revolute">
     <origin rpy="0 0 0" xyz="9.9e-05 0.001867 0.291081"/>
-    <parent link="link2_v2_1"/>
-    <child link="link3_v2_1"/>
+    <parent link="link2"/>
+    <child link="link3"/>
     <axis xyz="-0.0 -1.0 -0.0"/>
     <limit effort="100" lower="-2.70526" upper="2.70526" velocity="100"/>
   </joint>
   <joint name="Revolute 4" type="revolute">
     <origin rpy="0 0 0" xyz="0.0 -0.046977 0.191308"/>
-    <parent link="link3_v2_1"/>
-    <child link="link4_v2_1"/>
+    <parent link="link3"/>
+    <child link="link4"/>
     <axis xyz="-0.0 1.0 -0.0"/>
     <limit effort="100" lower="-2.356194" upper="2.356194" velocity="100"/>
   </joint>
   <joint name="Revolute 5" type="continuous">
     <origin rpy="0 0 0" xyz="0.0 0.0238 0.096239"/>
-    <parent link="link4_v2_1"/>
-    <child link="link5_v2_1"/>
+    <parent link="link4"/>
+    <child link="link5"/>
     <axis xyz="0.0 -0.0 -1.0"/>
   </joint>
   <joint name="Revolute 6" type="revolute">
     <origin rpy="0 0 0" xyz="0.0 -0.0231 0.045761"/>
-    <parent link="link5_v2_1"/>
-    <child link="Hand_v2_1"/>
+    <parent link="link5"/>
+    <child link="Hand"/>
     <axis xyz="0.0 1.0 -0.0"/>
     <limit effort="100" lower="-2.356194" upper="2.356194" velocity="100"/>
   </joint>
   <joint name="Slider 7" type="prismatic">
     <origin rpy="0 0 0" xyz="0.005124 0.1038 0.127614"/>
-    <parent link="Hand_v2_1"/>
-    <child link="finger_v2_1"/>
+    <parent link="Hand"/>
+    <child link="finger1"/>
     <axis xyz="0.0 -1.0 0.0"/>
     <limit effort="100" lower="0.0" upper="0.0425" velocity="100"/>
   </joint>
   <joint name="Slider 8" type="prismatic">
     <origin rpy="0 0 0" xyz="0.005124 -0.0562 0.127614"/>
-    <parent link="Hand_v2_1"/>
-    <child link="finger_v2__1__1"/>
+    <parent link="Hand"/>
+    <child link="finger2"/>
     <axis xyz="0.0 -1.0 0.0"/>
     <limit effort="100" lower="-0.0425" upper="0.0" velocity="100"/>
   </joint>

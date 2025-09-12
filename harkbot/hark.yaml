@@ -3,17 +3,11 @@ config:
   source: "urdf"
   urdf_path: "hark.urdf"
   class_dir: "../../ark_robots/ARK_BOT/harkbot"
-  frequency: 240 # default is 240Hz
-  base_position:
-    - 0
-    - 0
-    - 0.2
-  base_orientation: # x, y, z, w
-    - 0
-    - 0
-    - 0
-    - 1
+  frequency: 240
+  base_position: [0, 0, 0.2]
+  base_orientation: [0, 0, 0, 1] # x, y, z, w
   use_fixed_base: true
+
   initial_configuration:
     - 0.0
     - -0.785398
@@ -25,36 +19,59 @@ config:
     - 0.0
     - 0.0
     - 0.0
+
   ee_index: 6
+
   joint_groups:
     arm:
       control_mode: "position"
       joints:
-        - "panda_joint1"
-        - "panda_joint2"
-        - "panda_joint3"
-        - "panda_joint4"
-        - "panda_joint5"
-        - "panda_joint6"
-        - "panda_joint7"
+        - "base_link"
+        - "link1"
+        - "link2"
+        - "link3"
+        - "link4"
+        - "link5"
+        - "hand"
     gripper:
       control_mode: "velocity"
       joints:
-        - "panda_finger_joint1"
+        - "finger1"
     all:
       control_mode: "position"
       joints:
-        - "panda_joint1"
-        - "panda_joint2"
-        - "panda_joint3"
-        - "panda_joint4"
-        - "panda_joint5"
-        - "panda_joint6"
-        - "panda_joint7"
-        - "panda_finger_joint1"
+        - "base_link"
+        - "link1"
+        - "link2"
+        - "link3"
+        - "link4"
+        - "link5"
+        - "hand"
 
   real_config:
-    robot_ip: "172.16.0.2"
-    gripper_ip: "172.16.0.2"
-    relative_dynamics_factor: 0.3
-    gripper_speed: 0.5
+    port: "COM5"
+    baudrate: 1000000
+
+    # IMPORTANT: joint_order must match the names used elsewhere (panda_*), in the SAME order as motor_ids
+    motor_ids: [1, 2, 3, 4, 5, 6, 7]
+    joint_order:
+      ["base_link", "link1", "link2", "link3", "link4", "link5", "hand"]
+
+    gear_ratios: { "1": 9.0, "2": 9.0, "3": 9.0, "4": 1.0, "5": 1.0, "6": 1.0 }
+    zero_offsets_deg:
+      { "1": 0.0, "2": 0.0, "3": 0.0, "4": 0.0, "5": 0.0, "6": 0.0 }
+    ticks_per_turn: 4096
+
+    speed_default: 1200
+    acc_default: 50
+
+    gripper:
+      # Use the same name that appears in joint_groups
+      name: "finger1"
+      id: 9
+      min_width_m: 0.0
+      max_width_m: 0.08
+      min_ticks: 1000
+      max_ticks: 3000
+      speed: 1000
+      acc: 30
