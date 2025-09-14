@@ -1,4 +1,3 @@
-# my_robot.py
 from typing import Any, Dict
 from dataclasses import dataclass
 from enum import Enum
@@ -18,13 +17,13 @@ from arktypes.utils import unpack
 class Drivers(Enum):
     PYBULLET_DRIVER = BulletRobotDriver
     try:
-        from ark_bot_driver import MyRobotDriver  
-        DRIVER = MyRobotDriver
+        from ark_bot_driver import ArkBotDriver  
+        DRIVER = ArkBotDriver
     except ImportError:
-        log.warn("MyRobotDriver is failing")
+        log.warn("ArkBotDriver is failing")
     
 
-class MyRobot(Robot):
+class ArkBot(Robot):
     def __init__(self, name: str, global_config: Dict[str, Any] = None, driver: RobotDriver = None):
         super().__init__(name=name, global_config=global_config, driver=driver)
     
@@ -95,6 +94,6 @@ class MyRobot(Robot):
 CONFIG_PATH = "arkbot.yaml"
 if __name__ == "__main__":
     name = "Arkbot"
-    driver = MyRobotDriver(name, CONFIG_PATH, sim=False)
-    main(MyRobot, name, CONFIG_PATH, driver)
+    driver = ArkBotDriver(name, CONFIG_PATH, sim=False)
+    main(ArkBot, name, CONFIG_PATH, driver)
 
