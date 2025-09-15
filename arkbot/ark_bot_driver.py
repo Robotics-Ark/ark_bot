@@ -24,6 +24,7 @@ class ArkBotDriver(RobotDriver):
 
     def __init__(self, component_name: str, component_config: Dict[str, Any] = None, sim: bool = False):
         super().__init__(component_name, component_config, sim)
+        
         rc = self.config["real_config"]
 
         # Serial
@@ -123,17 +124,20 @@ class ArkBotDriver(RobotDriver):
     def pass_joint_efforts(self, joints: List[str]) -> Dict[str, float]:
         raise NotImplementedError
 
+    def check_torque_status(self, joints: List[str]) -> Dict[str, float]:
+        raise NotImplementedError
+
     # ======================
     # Control Functions
     # ======================
 
-    def pass_joint_group_control_cmd(self, control_mode: str, joints: List[str], cmd: Dict[str, float], **kwargs) -> None:
+    def pass_joint_group_control_cmd(self, control_mode: str, cmd: Dict[str, float], **kwargs) -> None:
 
         group = kwargs.get("group_name", "arm")
-
+        print(f"Received joint group command for group '{group}': {cmd}")
         if control_mode == "position":
             # Convert each joint target rad -> ticks and queue for its worker
-            for jname in joints:
+            for jname in cmd.keys():
                 sid = self._sid_from_joint(jname)
                 target_rad = float(cmd[jname])
                 target_ticks = self._rad_to_ticks(sid, target_rad)

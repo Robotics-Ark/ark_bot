@@ -77,16 +77,6 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Slider 8_tran">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Slider 8">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="Slider 8_actr">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
   <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="control"/>
   </gazebo>
@@ -371,13 +361,5 @@
     <child link="finger1"/>
     <axis xyz="0.0 -1.0 0.0"/>
     <limit effort="100" lower="0.0" upper="0.0425" velocity="100"/>
-  </joint>
-  <joint name="Slider 8" type="prismatic">
-    <origin rpy="0 0 0" xyz="0.005124 -0.0562 0.127614"/>
-    <parent link="Hand"/>
-    <child link="finger2"/>
-    <axis xyz="0.0 -1.0 0.0"/>
-    <limit effort="100" lower="-0.0425" upper="0.0" velocity="100"/>
-    <mimic joint="Slider 7" multiplier="-1.0" />
   </joint>
 </robot>

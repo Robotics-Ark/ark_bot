@@ -44,12 +44,13 @@ class ArkBot(Robot):
 
     def control_robot(self):
         if self.joint_group_command:
+            print(self.joint_group_command)
             group_name = self.joint_group_command["name"]
             ordered_names = list(self.joint_groups[group_name]["joints"])
             ordered_vals = self.joint_group_command["cmd"]
             cmd_dict = dict(zip(ordered_names, ordered_vals))
             control_mode = self.joint_groups[group_name]["control_mode"]
-            self.control_joint_group(control_mode, cmd_dict)
+            self.control_joint_group(control_mode=control_mode, cmd=cmd_dict)
             self.joint_group_command = None
 
         if self.cartesian_position_control_command:
@@ -79,6 +80,7 @@ class ArkBot(Robot):
         msg.velocity = [0.0] * msg.n
         msg.effort   = [0.0] * msg.n
 
+        # print(joint_state)
         return { self.joint_states_pub: msg }
 
     def _joint_group_command_cb(self, t, ch, msg):
@@ -93,7 +95,8 @@ class ArkBot(Robot):
 
 CONFIG_PATH = "arkbot.yaml"
 if __name__ == "__main__":
-    name = "Arkbot"
+    name = "arkbot"
+    from ark_bot_driver import ArkBotDriver
     driver = ArkBotDriver(name, CONFIG_PATH, sim=False)
     main(ArkBot, name, CONFIG_PATH, driver)
 
