@@ -32,7 +32,7 @@ This is a list of the most basic tools required to build the Ark_bot, additional
 
 
 
-## Parts Price Comparison
+## Bill Of Materials
 The parts ordered from either side (amazon or cheapest) are the same parts, the difference in time and price. The amazon links will come significantly faster whilst the others will take a while longer.
 At the bottom though there are two different PLA filaments, the bambu or an equivalent high brand printer filament is reccomended, but if on a budget, the amazon ones will work fine.
 
@@ -46,8 +46,8 @@ At the bottom though there are two different PLA filaments, the bambu or an equi
 <hr>
 
 
-| Qty Needed | Name                        | Amazon Price | Amazon Link | Cheapest Price | Cheapest Link |
-|-------------|--------------------------------|-----------------|---------------|------------------|-----------------|
+| Qty Needed | Name | Amazon Price | Amazon Link | Cheapest Price | Cheapest Link |
+| --- | --- | --- | --- | --- | --- |
 | 7          | ST 3215 Servos              | £26.99 (x7) | [Amazon](https://www.amazon.co.uk/Waveshare-Servo-Precision-Programmable-Switchable/dp/B0B6HSBRGF) | £20.10 (x7) | [Robotshop](https://uk.robotshop.com/products/waveshare-30kg-serial-bus-servo-high-precision-torque-w-360-deg-encoder) |
 | 1          | Servo Bus Driver            | £9.99  (x1)  | [Amazon](https://www.amazon.co.uk/Waveshare-Integrates-Control-Applicable-Integrate/dp/B0CJ6TP3TP) | £4.80 (x1) | [PiHut](https://thepihut.com/products/serial-bus-servo-driver-board) |
 | 36         | 693-2z (Tiny Bearings)      | £9.89 (x2)| [Amazon](https://www.amazon.co.uk/sourcing-map-Groove-Bearing-Bearings/dp/B07FXVZ4W4) | £2.31 (x4) | [AliExpress](https://www.aliexpress.com/item/1005005858463502.html) |
@@ -63,6 +63,82 @@ At the bottom though there are two different PLA filaments, the bambu or an equi
 
 ---
 </div>
+
+## List of 3D models:
+
+Release V1.0 Parts List (Grouped by Subsystem)
+
+<div align="center">
+
+## Base
+| Quantity | Name of File           |
+|----------|------------------------|
+| 1        | Base                   |
+| 2        | Base Bearing Cover     |
+| 1        | Base Motor Holder      |
+| 1        | Joint 1 Base           |
+| 1        | Joint 1 Connector to Joint 2 |
+
+---
+
+## Cyclodial Drive
+| Quantity | Name of File                                    |
+|----------|-------------------------------------------------|
+| 2        | Motor Holders                                   |
+| 2        | Bearing Holder Disk for Cyclodial Drive Exterior|
+| 2        | Cyclodial Drive Exterior                        |
+| 2        | Cyclodial Drive Exterior Top                    |
+| 1        | Cyclodial Drive Other Half                      |
+| 3        | Eccentric Rod Motor Connector                   |
+| 18       | Internal Cyclodial Drive Spacer                 |
+| 6        | Cyclodial Disk                                  |
+| 3        | Cyclodial Driver Interior Top                   |
+| 3        | Eccentric Rod Middle                            |
+| 3        | Eccentric Rod Top                               |
+| 3        | Cyclodial Driver Interior Bottom                |
+
+---
+
+## Links
+| Quantity | Name of File           |
+|----------|------------------------|
+| 1        | Link 3 Body            |
+| 2        | Link3 and 5 Motor Side |
+| 2        | Link3 and 5 Side       |
+| 1        | Link4                  |
+| 1        | Link5 Body             |
+
+---
+
+## Claw
+| Quantity | Name of File                 |
+|----------|------------------------------|
+| 2        | Claw Connector               |
+| 1        | Claw Bottom Case             |
+| 1        | Claw Runners                 |
+| 2        | Claw Body                    |
+| 4        | Claw Runner Clamp            |
+| 2        | Claw Link                    |
+| 2        | Finger                       |
+| 1        | Claw Motor Driver            |
+| 2        | Claw Motor Holder Link Pin   |
+| 2        | Claw Link Motor              |
+| 2        | Claw Link Cap                |
+
+---
+
+## Limbs
+| Quantity | Name of File       |
+|----------|--------------------|
+| 2        | Limb Motor Side    |
+| 2        | Limb Non Motor Side|
+
+---
+
+**Total Parts: 86**
+
+</div>
+
 <!--
 # Arkbot hardware
 <!--
