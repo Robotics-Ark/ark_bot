@@ -70,68 +70,21 @@ Release V1.0 Parts List (Grouped by Subsystem)
 
 <div align="center">
 
-## Base
-| Quantity | Name of File           |
-|----------|------------------------|
-| 1        | Base                   |
-| 2        | Base Bearing Cover     |
-| 1        | Base Motor Holder      |
-| 1        | Joint 1 Base           |
-| 1        | Joint 1 Connector to Joint 2 |
 
----
-
-## Cyclodial Drive
-| Quantity | Name of File                                    |
-|----------|-------------------------------------------------|
-| 2        | Motor Holders                                   |
-| 2        | Bearing Holder Disk for Cyclodial Drive Exterior|
-| 2        | Cyclodial Drive Exterior                        |
-| 2        | Cyclodial Drive Exterior Top                    |
-| 1        | Cyclodial Drive Other Half                      |
-| 3        | Eccentric Rod Motor Connector                   |
-| 18       | Internal Cyclodial Drive Spacer                 |
-| 6        | Cyclodial Disk                                  |
-| 3        | Cyclodial Driver Interior Top                   |
-| 3        | Eccentric Rod Middle                            |
-| 3        | Eccentric Rod Top                               |
-| 3        | Cyclodial Driver Interior Bottom                |
-
----
-
-## Links
-| Quantity | Name of File           |
-|----------|------------------------|
-| 1        | Link 3 Body            |
-| 2        | Link3 and 5 Motor Side |
-| 2        | Link3 and 5 Side       |
-| 1        | Link4                  |
-| 1        | Link5 Body             |
-
----
-
-## Claw
-| Quantity | Name of File                 |
-|----------|------------------------------|
-| 2        | Claw Connector               |
-| 1        | Claw Bottom Case             |
-| 1        | Claw Runners                 |
-| 2        | Claw Body                    |
-| 4        | Claw Runner Clamp            |
-| 2        | Claw Link                    |
-| 2        | Finger                       |
-| 1        | Claw Motor Driver            |
-| 2        | Claw Motor Holder Link Pin   |
-| 2        | Claw Link Motor              |
-| 2        | Claw Link Cap                |
-
----
-
-## Limbs
-| Quantity | Name of File       |
-|----------|--------------------|
-| 2        | Limb Motor Side    |
-| 2        | Limb Non Motor Side|
+| **Base**                        | **Cyclodial Drive**                           | **Links**                  | **Claw**                        | **Limbs**              |
+|---------------------------------|-----------------------------------------------|----------------------------|---------------------------------|------------------------|
+| 1 × Base                        | 2 × Motor Holders                             | 1 × Link 3 Body            | 2 × Claw Connector              | 2 × Limb Motor Side    |
+| 2 × Base Bearing Cover          | 2 × Bearing Holder Disk (Exterior)            | 2 × Link3 and 5 Motor Side | 1 × Claw Bottom Case            | 2 × Limb Non Motor Side|
+| 1 × Base Motor Holder           | 2 × Cyclodial Drive Exterior                  | 2 × Link3 and 5 Side       | 1 × Claw Runners                 |                        |
+| 1 × Joint 1 Base                 | 2 × Cyclodial Drive Exterior Top              | 1 × Link4                  | 2 × Claw Body                    |                        |
+| 1 × Joint 1 Connector to Joint 2 | 1 × Cyclodial Drive Other Half                | 1 × Link5 Body             | 4 × Claw Runner Clamp            |                        |
+|                                 | 3 × Eccentric Rod Motor Connector             |                            | 2 × Claw Link                    |                        |
+|                                 | 18 × Internal Cyclodial Drive Spacer          |                            | 2 × Finger                       |                        |
+|                                 | 6 × Cyclodial Disk                            |                            | 1 × Claw Motor Driver            |                        |
+|                                 | 3 × Cyclodial Driver Interior Top             |                            | 2 × Claw Motor Holder Link Pin   |                        |
+|                                 | 3 × Eccentric Rod Middle                      |                            | 2 × Claw Link Motor              |                        |
+|                                 | 3 × Eccentric Rod Top                         |                            | 2 × Claw Link Cap                |                        |
+|                                 | 3 × Cyclodial Driver Interior Bottom          |                            |                                 |                        |
 
 ---
 
