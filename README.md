@@ -18,6 +18,14 @@
 <img src="assets/tempcoverimg.jpg" alt="Cover Image" title="Cover Image" width="50%">
 </div>
 
+## Features and data of Ark_bot
+
+## Design considerations of Ark_bot
+
+## Examples of Ark_bot
+
+(Add example videos)
+
 ## Build an Ark_bot 🛠️
 
 To assemble and build your own Ark_bot, head to the <a href= "#">hardware</a> section of this repo and read the README file. <br>
