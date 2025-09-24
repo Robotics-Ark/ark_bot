@@ -363,3 +363,13 @@
     <limit effort="100" lower="0.0" upper="0.0425" velocity="100"/>
   </joint>
 </robot>
+<!-- Mirrored finger, driven by the same motor via mimic -->
+<joint name="Slider 8" type="prismatic">
+  <origin rpy="0 0 0" xyz="0.005124 -0.1038 0.127614"/>
+  <parent link="Hand"/>
+  <child link="finger2"/>
+  <!-- Opposite axis to open/close symmetrically -->
+  <axis xyz="0 1 0"/>
+  <limit effort="100" lower="0.0" upper="0.0425" velocity="1.0"/>
+  <mimic joint="Slider 7" multiplier="1.0" offset="0.0"/>
+</joint>
