@@ -2,8 +2,10 @@
 <h1 align="center">
 Ark_Bot
 </h1>
-The Ark robot. Release Version 1.0 <br>
+The Ark robot. Release Version 1.0 
+
 <div align = "center">
+  <br>
   This is the Ark_bot, a pick-and-place robotic arm designed to be affordable and easy to build at home. With the intention of demonstrating the ark_framework's capabilities and planning for future real-life reinforcement learning. This design comes complete with a complete URDF file (inertia matrices to be added soon)
 </div>
 
