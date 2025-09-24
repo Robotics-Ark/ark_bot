@@ -1,0 +1,83 @@
+robots:
+  - name: "arkbot"
+    config:
+      source: "urdf"
+      urdf_path: "ark_bot.urdf"
+      class_dir: "../arkbot"
+      frequency: 240
+      base_position: [0, 0, 0]
+      base_orientation: [0, 0, 0, 1] # x, y, z, w
+      use_fixed_base: true
+
+      initial_configuration:
+        - 0.0 # Revolute 1
+        - 1.0 # Revolute 2
+        - 0.0 # Revolute 3
+        - -1.0 # Revolute 4
+        - 0.0 # Revolute 5
+        - 0.0 # Revolute 6
+        - 0.0 # Slider 7
+        - 0.0 # slider 8
+
+      ee_index: 5
+
+      joint_groups:
+        arm:
+          control_mode: "position"
+          joints:
+            - "Revolute 1"
+            - "Revolute 2"
+            - "Revolute 3"
+            - "Revolute 4"
+            - "Revolute 5"
+            - "Revolute 6"
+        gripper:
+          control_mode: "velocity"
+          joints:
+            - "Slider 7"
+        all:
+          control_mode: "position"
+          joints:
+            - "Revolute 1"
+            - "Revolute 2"
+            - "Revolute 3"
+            - "Revolute 4"
+            - "Revolute 5"
+            - "Revolute 6"
+            - "Slider 7"
+
+      real_config:
+        port: "/dev/ttyACM0"
+        baudrate: 1000000
+
+        # IMPORTANT: joint_order must match the names used elsewhere (panda_*), in the SAME order as motor_ids
+        motor_ids: [1, 2, 3, 4, 5, 6, 7]
+        joint_order:
+          [
+            "Revolute 1",
+            "Revolute 2",
+            "Revolute 3",
+            "Revolute 4",
+            "Revolute 5",
+            "Revolute 6",
+            "Slider 7",
+          ]
+
+        gear_ratios: { "1": 9.0, "2": 9.0, "3": 9.0, "4": 1.0, "5": 1.0, "6": 1.0 }
+        zero_offsets_deg:
+          { "1": 0.0, "2": 0.0, "3": 0.0, "4": 0.0, "5": 0.0, "6": 0.0 }
+        ticks_per_turn: 4096
+
+        speed_default: 1200
+        acc_default: 50
+
+        gripper:
+          # Use the same name that appears in joint_groups
+          name: "finger1"
+          id: 9
+          min_width_m: 0.0
+          max_width_m: 0.08
+          min_ticks: 1000
+          max_ticks: 3000
+          speed: 1000
+          acc: 30
