@@ -267,3 +267,11 @@ class sts(protocol_packet_handler):
         speed = self.sts_toscs(speed, 15)
         txpacket = [acc, 0, 0, 0, 0, self.sts_lobyte(speed), self.sts_hibyte(speed)]
         return self.writeTxRx(sts_id, STS_ACC, len(txpacket), txpacket)
+
+    def SetMiddle(self, sts_id):
+        txpacket = [128]
+        comm, error = self.writeTxRx(sts_id, STS_TORQUE_ENABLE, len(txpacket), txpacket)
+        if comm == COMM_SUCCESS and error == 0:
+            return True
+        else:
+            return None

@@ -4,7 +4,7 @@ simulator:
   backend_type: "pybullet"                      # type of the backend
   node_frequency: 240                           # node frequency in Hz (default 240)
   config:                                       # simulator-specific
-    connection_mode: "DIRECT"  
+    connection_mode: "GUI"  
     gravity:                                    # default [0, 0, -9.81]
       - 0
       - 0
