@@ -122,7 +122,7 @@ class ArkBotDriver(RobotDriver):
 
             home_total = self._home_total_ticks.get(sid, 0)
 
-            mech_turns_rad = ( (total_ticks - home_total) / (self.ticks_per_turn * gear) ) * _TW O_PI
+            mech_turns_rad = ( (total_ticks - home_total) / (self.ticks_per_turn * gear) ) * _TWO_PI
             out[jname] = mech_turns_rad - pos_offset
 
             # You can print for debugging:
@@ -140,13 +140,11 @@ class ArkBotDriver(RobotDriver):
             sid = self._sid_from_joint(jname)
             goal_total = self._angle_rad_to_total_ticks(sid, float(target_rad))
 
-            # Device usually accepts only 0..4095; send modulo
-            goal_mod = int(goal_total) % int(self.ticks_per_turn)
-            self._goals_ticks[sid] = goal_mod
+            self._goals_ticks[sid] = int(round(goal_total))
             self._events[sid].set()
 
             # Debug:
-            # print(f"[sid {sid}] θ={target_rad:.3f} rad -> total={goal_total:.1f} ticks -> send={goal_mod}")
+            print(f"[sid {sid}] θ={target_rad:.3f} rad -> total={goal_total:.1f} ticks -> send={goal_total}")
 
         time.sleep(0.001)
 
@@ -181,12 +179,12 @@ class ArkBotDriver(RobotDriver):
             ev.wait(timeout=0.25)
             if self._stop.is_set(): break
             if ev.is_set():
-                goal = self._goals_ticks[sid]
+                goal_total = self._goals_ticks[sid]
                 ev.clear()
-                if goal != last_sent:
+                if goal_total != last_sent:
                     with self._comm_lock:
-                        self._pkt.send_goal(sid, int(goal), self.speed_default, self.acc_default)
-                    last_sent = goal
+                        self._pkt.send_goal(sid, int(goal_total), self.speed_default, self.acc_default)
+                    last_sent = goal_total
 
     def shutdown_driver(self):
         self._stop.set()
@@ -423,14 +421,14 @@ class ArkBotDriver(RobotDriver):
 
 
 
-#     def pass_joint_velocities(self, joints: List[str]) -> Dict[str, float]:
-#         raise NotImplementedError
+    def pass_joint_velocities(self, joints: List[str]) -> Dict[str, float]:
+        raise NotImplementedError
 
-#     def pass_joint_efforts(self, joints: List[str]) -> Dict[str, float]:
-#         raise NotImplementedError
+    def pass_joint_efforts(self, joints: List[str]) -> Dict[str, float]:
+        raise NotImplementedError
 
-#     def check_torque_status(self, joints: List[str]) -> Dict[str, float]:
-#         raise NotImplementedError
+    def check_torque_status(self, joints: List[str]) -> Dict[str, float]:
+        raise NotImplementedError
 
 #     # ======================
 #     # Control Functions
