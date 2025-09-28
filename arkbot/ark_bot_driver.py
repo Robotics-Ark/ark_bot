@@ -39,13 +39,26 @@ class ArkBotDriver(RobotDriver):
         # Kinematic conversion
         self.ticks_per_turn = float(rc.get("ticks_per_turn", 4096))
         gr = rc.get("gear_ratios", {})
+        self.gear_ratio = {int(k): float(v) for k, v in gr.items()}
+
         zo = rc.get("zero_offsets_deg", {})
+        self.zero_off_rad = {int(k): math.radians(float(v)) for k, v in zo.items()}
+
         #position off set
         po = rc.get("hack_pos_zero_offsets_deg", {})
-        # normalize keys to int
-        self.gear_ratio: Dict[int, float] = {int(k): float(v) for k, v in gr.items()}
-        self.zero_off_rad: Dict[int, float] = {int(k): math.radians(float(v)) for k, v in zo.items()}
-        self.pos_off: Dict[int, float] = {int(k): float(v) for k, v in po.items()}
+        self.pos_off = {int(k): float(v) for k, v in po.items()}
+
+        # Home def in loops and ticks
+        ht = rc.get("home_ticks", {})
+        hl = rc.get("home_loops", {})
+        self.home_ticks = {int(k): int(v) for k, v in ht.items()}
+        self.home_loops = {int(k): int(v) for k, v in hl.items()}
+
+        # Precompute home_total_ticks per motor: loops*4096 + tick
+        self._home_total_ticks = {
+            sid: self.home_loops.get(sid, 0) * int(self.ticks_per_turn) + self.home_ticks.get(sid, 0)
+            for sid in self.motor_ids
+        }
 
         # Motion defaults
         self.speed_default = int(rc.get("speed_default", 1200))
@@ -69,6 +82,10 @@ class ArkBotDriver(RobotDriver):
         self._events: Dict[int, threading.Event] = {}
         # Stop flag
         self._stop = threading.Event()
+
+        # Seed from current absolute tick and init loop counters
+        self._previous_ticks: Dict[int, int] = {}
+        self._loop_count: Dict[int, int] = {}
 
         # Configure motors and seed goals with current abs pos
         for sid in self.motor_ids:
@@ -94,8 +111,6 @@ class ArkBotDriver(RobotDriver):
 
         log.info(f"[{component_name}] ArkBotDriver initialised on {self.port} @ {self.baud}")
 
-        self._previous_ticks: Dict[int, int] = {sid: 0 for sid in self.motor_ids}
-        self._loop_count: Dict[int, int] = {sid: 0 for sid in self.motor_ids}
 
     
     # ======================
@@ -188,6 +203,8 @@ class ArkBotDriver(RobotDriver):
             position_offset = self.pos_off.get(sid, 0.0)
             # Get the gear ratio for the joint
             gear_ratio = self.gear_ratio.get(sid, 1.0)
+
+            home_total = self._home_total_ticks.get(sid, 0)
 
             # Calculate the number of full loops (revolutions) and the "delta ticks"
             delta_ticks = ticks - self._previous_ticks[sid]
