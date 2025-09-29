@@ -103,35 +103,58 @@ class ArkBotDriver(RobotDriver):
     # ---------------- driver API ----------------
 
     def pass_joint_positions(self, joints: List[str]) -> Dict[str, float]:
-        """
-        Reads raw ticks (0..4095) and loop wraps, converts to radians relative to HOME (loops+tick).
-        angle_rad = ((total_ticks_now - home_total_ticks) / (ticks_per_turn * gear_ratio)) * 2π - pos_offset
-        """
         out: Dict[str, float] = {}
+        half = self.ticks_per_turn // 2
         for jname in joints:
-            sid = self._sid_from_joint(jname)
+            sid   = self._sid_from_joint(jname)
             ticks = self._safe_read_abs_pos(sid)
 
-            # Update wrap/loop counter
-            delta = ticks - self._previous_ticks[sid]
-            if   delta >  self.ticks_per_turn / 2: self._loop_count[sid] -= 1
-            elif delta < -self.ticks_per_turn / 2: self._loop_count[sid] += 1
+            # unwrap
+            d = ticks - self._previous_ticks[sid]
+            if   d >  half: d -= self.ticks_per_turn
+            elif d < -half: d += self.ticks_per_turn
+            self._loop_count[sid] += (1 if d < -half else -1 if d > half else 0)  # optional; above already unwrapped
             self._previous_ticks[sid] = ticks
 
-            total_ticks = int(self._loop_count[sid] * self.ticks_per_turn + ticks)
+            total_ticks = self._loop_count[sid] * self.ticks_per_turn + ticks
+            home_total  = self._home_total_ticks.get(sid, 0)
+            gear        = self.gear_ratio.get(sid, 1.0)
+            pos_offset  = self.pos_off.get(sid, 0.0)
 
-            gear = self.gear_ratio.get(sid, 1.0)
-            pos_offset = self.pos_off.get(sid, 0.0)  # (rad) optional last-mile tweak
-
-            home_total = self._home_total_ticks.get(sid, 0)
-
-            mech_turns_rad = ( (total_ticks - home_total) / (self.ticks_per_turn * gear) ) * _TWO_PI
-            out[jname] = mech_turns_rad - pos_offset
-
-            # You can print for debugging:
-            # print(f"[sid {sid}] ticks={ticks} loops={self._loop_count[sid]} total={total_ticks} -> {out[jname]:.3f} rad")
-
+            angle = ((total_ticks - home_total) / (self.ticks_per_turn * gear)) * _TWO_PI
+            out[jname] = angle - pos_offset
         return out
+
+    # def pass_joint_positions(self, joints: List[str]) -> Dict[str, float]:
+    #     """
+    #     Reads raw ticks (0..4095) and loop wraps, converts to radians relative to HOME (loops+tick).
+    #     angle_rad = ((total_ticks_now - home_total_ticks) / (ticks_per_turn * gear_ratio)) * 2π - pos_offset
+    #     """
+    #     out: Dict[str, float] = {}
+    #     for jname in joints:
+    #         sid = self._sid_from_joint(jname)
+    #         ticks = self._safe_read_abs_pos(sid)
+
+    #         # Update wrap/loop counter
+    #         delta = ticks - self._previous_ticks[sid]
+    #         if   delta >  self.ticks_per_turn / 2: self._loop_count[sid] -= 1
+    #         elif delta < -self.ticks_per_turn / 2: self._loop_count[sid] += 1
+    #         self._previous_ticks[sid] = ticks
+
+    #         total_ticks = int(self._loop_count[sid] * self.ticks_per_turn + ticks)
+
+    #         gear = self.gear_ratio.get(sid, 1.0)
+    #         pos_offset = self.pos_off.get(sid, 0.0)  # (rad) optional last-mile tweak
+
+    #         home_total = self._home_total_ticks.get(sid, 0)
+
+    #         mech_turns_rad = ( (total_ticks - home_total) / (self.ticks_per_turn * gear) ) * _TWO_PI
+    #         out[jname] = mech_turns_rad - pos_offset
+
+    #         # You can print for debugging:
+    #         # print(f"[sid {sid}] ticks={ticks} loops={self._loop_count[sid]} total={total_ticks} -> {out[jname]:.3f} rad")
+
+    #     return out
     
     # def pass_joint_positions(self, joints: List[str]) -> List[float]:
     #     """
