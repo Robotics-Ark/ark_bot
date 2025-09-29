@@ -27,15 +27,15 @@ node = HarkControllerNode()
 time.sleep(1)  # wait for connections to establish
 
 # Define the different waypoints
-home = [0.0, 0.0, 0.0, 0.00, 0.0, 0.0, 0.0]
-approach_upper = [0.4, 0, -1.2, 2.0, 0.0, 2.2, 0.0]
-contact_upper = [0.4, 0.3, -1.2, 2.0, 0.0, 2.2, 0.0]
-push_upper = [0.4, 0.3, -1.2, 1.35, 0.0, 1.4, 0.0]
-lower_upper = [0.4, 0.3, -1.2, 2.0, 0.0, 2.2, 0.0]
-approach_lower = [0.4, 0.3, -1.8, 2.0, 0.0, 2.2, 0.0]
-contact_lower = [0.4, 0.4, -1.8, 1.5, 0.0, 2.2, 0.0]
-retract_lower = [0.4, -0.3, -1.8, 2.0, 0.0, 2.2, 0.0]
-push_lower = [0.4, 0.4, -1.8, 0.6, 0.0, 1.5, 0.0]
+home =  [0.0, 0.0, 0.0, 0.00, 0.0, 0.0, 0.0]
+approach_upper = [0.4, 0, 1.2, -2.0, 0.0, 2, 0.0]
+contact_upper = [0.4, -0.3, 1.3, -2.0, 0.0, 2.2, 0.0]
+push_upper = [0.4, -0.3, 1.3, -1.2, 0.0, 1.6, 0.0]
+lower_upper = [0.4, -0.3, 1.3, -2.0, 0.0, 2.2, 0.0]
+approach_lower = [0.4, -0.3, 1.8, -2.0, 0.0, 2.2, 0.0]
+contact_lower = [0.4, -0.4, 1.8, -1.5, 0.0, 2.2, 0.0]
+push_lower = [0.4, -0.4, 1.8, -0.5, 0.0, 1.4, 0.0]
+retract_lower = [0.4, 0.3, 1.8, -2.0, 0.0, 2.2, 0.0]
 
 # Create save directory for joint states
 save_dir = "joint_state_data"
@@ -80,14 +80,14 @@ def capture_joint_state(filename, rate=1.0, done_event=None):
 # Function to move robot through waypoints and capture joint states
 def move_robot_and_capture_state():
     # Move through waypoints and capture joint states
-    node.joint_group_command.publish(pack.joint_group_command(home, "all"))
+    node.joint_group_command.publish(pack.joint_group_command(approach_upper, "all"))
     time.sleep(1)
     node.joint_group_command.publish(pack.joint_group_command(approach_upper, "all"))
     time.sleep(6)
-    node.joint_group_command.publish(pack.joint_group_command(push_upper, "all"))
-    time.sleep(2)
     node.joint_group_command.publish(pack.joint_group_command(contact_upper, "all"))
-    time.sleep(1)
+    time.sleep(2)
+    node.joint_group_command.publish(pack.joint_group_command(push_upper, "all"))
+    time.sleep(3)
     node.joint_group_command.publish(pack.joint_group_command(lower_upper, "all"))
     time.sleep(1)
     node.joint_group_command.publish(pack.joint_group_command(approach_lower, "all"))
@@ -96,9 +96,11 @@ def move_robot_and_capture_state():
     time.sleep(2)
     node.joint_group_command.publish(pack.joint_group_command(push_lower, "all"))
     time.sleep(4)
+    node.joint_group_command.publish(pack.joint_group_command(contact_lower, "all"))
+    time.sleep(1)
     node.joint_group_command.publish(pack.joint_group_command(retract_lower, "all"))
     time.sleep(4)
-    node.joint_group_command.publish(pack.joint_group_command(home, "all"))
+    node.joint_group_command.publish(pack.joint_group_command(approach_upper, "all"))
 
 # Create an event for signaling when capture is done
 done_event = threading.Event()

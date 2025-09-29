@@ -51,7 +51,7 @@ robots:
         baudrate: 1000000
 
         # IMPORTANT: joint_order must match the names used elsewhere (panda_*), in the SAME order as motor_ids
-        motor_ids: [1, 2, 3, 4, 5, 6, 7]
+        motor_ids: [1, 2, 3, 4, 5, 6, 7, 8]
         joint_order:
           [
             "Revolute 1",
@@ -61,10 +61,11 @@ robots:
             "Revolute 5",
             "Revolute 6",
             "Slider 7",
+            "Slider 8",
           ]
 
         gear_ratios:
-          { "1": 9.0, "2": 9.0, "3": 9.0, "4": 1.0, "5": 1.0, "6": 1.0 }
+          { "1": 9.0, "2": 9.0, "3": 9.0, "4": 1.0, "5": 1.0, "6": 1.0, "7": 9.0 }
         #         # zero_offsets_deg:
         #         #   { "1": 0.0, "2": -175, "3": -220, "4": 0.0, "5": 1.0, "6": 0.0 }
         #         zero_offsets_deg:
@@ -74,10 +75,11 @@ robots:
         # # hack_pos_zero_offsets_deg:
         # #           { "1": 0.24918666, "2": 0.68960959, "3": 0.03374758, "4": 0.61819426, "5": 3.21829169,
         # #             "6": 1.06151471, "7": 4.48229186 }
-
+        motor_orientations:
+          { "1": -1, "2": -1, "3": -1, "4": -1, "5": 1, "6": 1, "7": 1 }
         home_ticks:
           {
-            "1": 0,
+            "1": 2800,
             "2": 2428,
             "3": 2093,
             "4": 1969,
@@ -85,11 +87,12 @@ robots:
             "6": 2015,
             "7": 2920,
           }
-        home_loops: { "1": 0, "2": 4, "3": 5, "4": 0, "5": 0, "6": 0, "7": 0 }
+        home_loops: { "1": -1, "2": 3, "3": 5, "4": 0, "5": 0, "6": 0, "7": 0 }
         ticks_per_turn: 4096
 
         speed_default: 190
         acc_default: 50
+        motor_speeds: { "7": 1000 }
 
         gripper:
           # Use the same name that appears in joint_groups

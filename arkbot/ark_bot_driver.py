@@ -31,6 +31,10 @@ class ArkBotDriver(RobotDriver):
         # Gear ratios
         gr = rc.get("gear_ratios", {})
         self.gear_ratio = {int(k): float(v) for k, v in gr.items()}
+        
+        # Motor orientations (+1 or -1)
+        mo = rc.get("motor_orientations", {})
+        self.motor_orientations = {int(k): int(v) for k, v in mo.items()}
 
         # (Legacy) zero offsets kept for compatibility but NOT used in the new math
         zo = rc.get("zero_offsets_deg", {})
@@ -192,7 +196,7 @@ class ArkBotDriver(RobotDriver):
         for jname, target_rad in cmd.items():
             sid = self._sid_from_joint(jname)
             goal_total = self._angle_rad_to_total_ticks(sid, float(target_rad))
-
+            
             self._goals_ticks[sid] = int(round(goal_total))
             self._events[sid].set()
 
@@ -208,8 +212,10 @@ class ArkBotDriver(RobotDriver):
         gear = float(self.gear_ratio.get(sid, 1.0))
         home_total = float(self._home_total_ticks.get(sid, 0))
         pos_offset = float(self.pos_off.get(sid, 0.0))
+        ori = self.motor_orientations.get(sid, 1)
+        motor_mech_angle = (angle_rad + pos_offset) * float(ori)
         # desired mechanical angle *from home*, expressed in ticks on the *motor* side
-        mech_ticks = ( (angle_rad + pos_offset) * (self.ticks_per_turn / _TWO_PI) ) * gear
+        mech_ticks = (motor_mech_angle * (self.ticks_per_turn / _TWO_PI)) * gear
         return home_total + mech_ticks
 
     def _safe_read_abs_pos(self, sid: int) -> int:

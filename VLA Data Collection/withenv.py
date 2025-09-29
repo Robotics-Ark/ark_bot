@@ -3,7 +3,7 @@ import time
 import pickle
 import numpy as np
 from scipy.spatial.transform import Rotation as R
-
+from diffusion_env import DiffusionEnv
 
 class DrawerPushPolicy:
     def __init__(self, steps_per_phase=100):
