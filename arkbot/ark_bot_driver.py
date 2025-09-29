@@ -87,7 +87,7 @@ class ArkBotDriver(RobotDriver):
 
             # Initialize loop counters relative to current tick
             self._previous_ticks[sid] = cur_ticks
-            self._loop_count[sid] = 0
+            self._loop_count[sid] = self.home_loops.get(sid, 0)
 
             self._events[sid] = threading.Event()
 
@@ -109,11 +109,9 @@ class ArkBotDriver(RobotDriver):
             sid   = self._sid_from_joint(jname)
             ticks = self._safe_read_abs_pos(sid)
 
-            # unwrap
-            d = ticks - self._previous_ticks[sid]
-            if   d >  half: d -= self.ticks_per_turn
-            elif d < -half: d += self.ticks_per_turn
-            self._loop_count[sid] += (1 if d < -half else -1 if d > half else 0)  # optional; above already unwrapped
+            raw = ticks - self._previous_ticks[sid]
+            if   raw >  half: self._loop_count[sid] -= 1   # wrapped 4095->0
+            elif raw < -half: self._loop_count[sid] += 1   # wrapped 0->4095
             self._previous_ticks[sid] = ticks
 
             total_ticks = self._loop_count[sid] * self.ticks_per_turn + ticks
@@ -123,6 +121,7 @@ class ArkBotDriver(RobotDriver):
 
             angle = ((total_ticks - home_total) / (self.ticks_per_turn * gear)) * _TWO_PI
             out[jname] = angle - pos_offset
+
         return out
 
     # def pass_joint_positions(self, joints: List[str]) -> Dict[str, float]:
