@@ -102,48 +102,17 @@ class ArkBotDriver(RobotDriver):
 
     # ---------------- driver API ----------------
 
-    # def pass_joint_positions(self, joints: List[str]) -> Dict[str, float]:
-    #     """
-    #     Reads raw ticks (0..4095) and loop wraps, converts to radians relative to HOME (loops+tick).
-    #     angle_rad = ((total_ticks_now - home_total_ticks) / (ticks_per_turn * gear_ratio)) * 2π - pos_offset
-    #     """
-    #     out: Dict[str, float] = {}
-    #     for jname in joints:
-    #         sid = self._sid_from_joint(jname)
-    #         ticks = self._safe_read_abs_pos(sid)
-
-    #         # Update wrap/loop counter
-    #         delta = ticks - self._previous_ticks[sid]
-    #         if   delta >  self.ticks_per_turn / 2: self._loop_count[sid] -= 1
-    #         elif delta < -self.ticks_per_turn / 2: self._loop_count[sid] += 1
-    #         self._previous_ticks[sid] = ticks
-
-    #         total_ticks = int(self._loop_count[sid] * self.ticks_per_turn + ticks)
-
-    #         gear = self.gear_ratio.get(sid, 1.0)
-    #         pos_offset = self.pos_off.get(sid, 0.0)  # (rad) optional last-mile tweak
-
-    #         home_total = self._home_total_ticks.get(sid, 0)
-
-    #         mech_turns_rad = ( (total_ticks - home_total) / (self.ticks_per_turn * gear) ) * _TWO_PI
-    #         out[jname] = mech_turns_rad - pos_offset
-
-    #         # You can print for debugging:
-    #         # print(f"[sid {sid}] ticks={ticks} loops={self._loop_count[sid]} total={total_ticks} -> {out[jname]:.3f} rad")
-
-    #     return out
-    
-    def pass_joint_positions(self, joints: List[str]) -> List[float]:
+    def pass_joint_positions(self, joints: List[str]) -> Dict[str, float]:
         """
-        Return a list of joint angles [rad] in the same order as `joints`.
-        Uses absolute ticks + wrap counting relative to HOME.
+        Reads raw ticks (0..4095) and loop wraps, converts to radians relative to HOME (loops+tick).
+        angle_rad = ((total_ticks_now - home_total_ticks) / (ticks_per_turn * gear_ratio)) * 2π - pos_offset
         """
-        vals: List[float] = []
+        out: Dict[str, float] = {}
         for jname in joints:
             sid = self._sid_from_joint(jname)
             ticks = self._safe_read_abs_pos(sid)
 
-            # wrap/loop counter
+            # Update wrap/loop counter
             delta = ticks - self._previous_ticks[sid]
             if   delta >  self.ticks_per_turn / 2: self._loop_count[sid] -= 1
             elif delta < -self.ticks_per_turn / 2: self._loop_count[sid] += 1
@@ -151,14 +120,45 @@ class ArkBotDriver(RobotDriver):
 
             total_ticks = int(self._loop_count[sid] * self.ticks_per_turn + ticks)
 
-            gear       = self.gear_ratio.get(sid, 1.0)
-            pos_offset = self.pos_off.get(sid, 0.0)              # (rad)
+            gear = self.gear_ratio.get(sid, 1.0)
+            pos_offset = self.pos_off.get(sid, 0.0)  # (rad) optional last-mile tweak
+
             home_total = self._home_total_ticks.get(sid, 0)
 
-            mech_turns_rad = ((total_ticks - home_total) / (self.ticks_per_turn * gear)) * _TWO_PI
-            vals.append(mech_turns_rad - pos_offset)
+            mech_turns_rad = ( (total_ticks - home_total) / (self.ticks_per_turn * gear) ) * _TWO_PI
+            out[jname] = mech_turns_rad - pos_offset
 
-        return vals
+            # You can print for debugging:
+            # print(f"[sid {sid}] ticks={ticks} loops={self._loop_count[sid]} total={total_ticks} -> {out[jname]:.3f} rad")
+
+        return out
+    
+    # def pass_joint_positions(self, joints: List[str]) -> List[float]:
+    #     """
+    #     Return a list of joint angles [rad] in the same order as `joints`.
+    #     Uses absolute ticks + wrap counting relative to HOME.
+    #     """
+    #     vals: List[float] = []
+    #     for jname in joints:
+    #         sid = self._sid_from_joint(jname)
+    #         ticks = self._safe_read_abs_pos(sid)
+
+    #         # wrap/loop counter
+    #         delta = ticks - self._previous_ticks[sid]
+    #         if   delta >  self.ticks_per_turn / 2: self._loop_count[sid] -= 1
+    #         elif delta < -self.ticks_per_turn / 2: self._loop_count[sid] += 1
+    #         self._previous_ticks[sid] = ticks
+
+    #         total_ticks = int(self._loop_count[sid] * self.ticks_per_turn + ticks)
+
+    #         gear       = self.gear_ratio.get(sid, 1.0)
+    #         pos_offset = self.pos_off.get(sid, 0.0)              # (rad)
+    #         home_total = self._home_total_ticks.get(sid, 0)
+
+    #         mech_turns_rad = ((total_ticks - home_total) / (self.ticks_per_turn * gear)) * _TWO_PI
+    #         vals.append(mech_turns_rad - pos_offset)
+
+    #     return vals
 
 
     def pass_joint_group_control_cmd(self, control_mode: str, cmd: Dict[str, float], **kwargs) -> None:
@@ -204,7 +204,7 @@ class ArkBotDriver(RobotDriver):
 
     def speed_for(self, sid:int) -> int:
         gear = float(self.gear_ratio.get(sid, 1.0))
-        spd = int(round(self.speed_default))
+        spd = int(round(self.speed_default) * gear )
         return max(self._speed_min, min(self._speed_max, spd))
 
     # Worker unchanged (still sends 0..4095 goals)
