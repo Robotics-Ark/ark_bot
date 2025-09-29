@@ -26,7 +26,7 @@ class ArkBotDriver(RobotDriver):
         self.motor_ids   = [int(x) for x in rc["motor_ids"]]
         assert len(self.joint_order) == len(self.motor_ids)
 
-        self.ticks_per_turn = float(rc.get("ticks_per_turn", 4096))
+        self.ticks_per_turn = int(rc.get("ticks_per_turn", 4096))
 
         # Gear ratios
         gr = rc.get("gear_ratios", {})
@@ -48,7 +48,7 @@ class ArkBotDriver(RobotDriver):
 
         # Precompute home_total_ticks per motor: loops*4096 + tick
         self._home_total_ticks = {
-            sid: self.home_loops.get(sid, 0) * int(self.ticks_per_turn) + self.home_ticks.get(sid, 0)
+            sid: self.home_loops.get(sid, 0) * self.ticks_per_turn + self.home_ticks.get(sid, 0)
             for sid in self.motor_ids
         }
 
