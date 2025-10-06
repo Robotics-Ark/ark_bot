@@ -58,11 +58,11 @@ The ArkBot is a pick-and-place robotic arm designed to be affordable and easy to
 
 <table>
 <tr>
-<td ><img src="" width="100%" alt="Pick and Place "/></td>
-<td ><img src="assets/shortIK.gif" width="100%" alt="Short IK Example"/></td>
+<td ><img src="assets/pickandplace.gif" width="100%" alt="Pick and Place "/></td>
 <td >
-  <img src="assets/TPUGripper.gif" width="100%" alt="TPU Gripper Example" />
+  <img src="assets/TPUGripper.gif" width="37%" alt="TPU Gripper Example" />
 </td>
+<td ><img src="assets/shortIK.gif" width="80%" alt="Short IK Example"/></td>
 
 </tr>
 </table>
