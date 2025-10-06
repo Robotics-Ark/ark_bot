@@ -32,7 +32,6 @@
 - [14. FAQ](#14-faq)
 
 - [15. Revision History](#15-revision-history)  
-  """
 
 ---
 
