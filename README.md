@@ -14,23 +14,25 @@
 ## Table of Contents
 
 - [1. Overview](#1-overview)
-- [2. Safety & Warnings](#2-safety--warnings)
-- [3. What’s in the Box](#3-whats-in-the-box)
+- [2. Example Videos](#2-example-videos)
+- [3. Bill of Materials](#3-bill-of-materials)
 - [4. Required Tools](#4-required-tools)
-- [5. Specifications](#5-specifications)
-- [6. Before You Start](#6-before-you-start)
-- [7. Quick Start](#7-quick-start)
+- [5. List of 3D Parts](#5-list-of-3d-parts)
+
+- [6. Specifications](#6-specifications)
+- [7. Before You Start](#7-before-you-start)
 - [8. Assembly Guide](#8-assembly-guide)
-- [9. Wiring / Connections](#9-wiring--connections)
+
+- [9. Motor Configuration](#9-motor-configuration)
 - [10. Software Setup](#10-software-setup)
 - [11. Calibration](#11-calibration)
+
 - [12. Operation](#12-operation)
-- [13. Maintenance](#13-maintenance)
-- [14. Troubleshooting](#14-troubleshooting)
-- [15. FAQ](#15-faq)
-- [16. Revision History](#16-revision-history)
-- [Appendix A: Bill of Materials](#appendix-a-bill-of-materials)
-- [Appendix B: Licenses & Credits](#appendix-b-licenses--credits)
+- [13. Troubleshooting](#13-troubleshooting)
+- [14. FAQ](#14-faq)
+
+- [15. Revision History](#15-revision-history)  
+  """
 
 ---
 
@@ -60,7 +62,7 @@ The ArkBot is a pick-and-place robotic arm designed to be affordable and easy to
 <tr>
 <td ><img src="assets/pickandplace.gif" width="100%" alt="Pick and Place "/></td>
 <td >
-  <img src="assets/TPUGripper.gif" width="37%" alt="TPU Gripper Example" />
+  <img src="assets/TPUGripper.gif" width="100%" alt="TPU Gripper Example" />
 </td>
 <td ><img src="assets/shortIK.gif" width="80%" alt="Short IK Example"/></td>
 
@@ -202,23 +204,18 @@ Then run the program, it will tell you the ID number of the motor, if this is no
 
 ## 10. Software Setup
 
-### Option A — Installer
+### Ark Framework
 
-1. Download `<installer>` for your OS.
-2. Run and follow prompts.
-3. Launch the app.
+Go to the Ark Framework repo and follow the instructions there.
 
-### Option B — From Source
+Make sure Ark Registry is running.
 
-```bash
-git clone <repo-url>
-cd <repo>
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
+Make sure arkbot.py is also running (in a different terminal)
+
+Then use the jupyter notebook in tests, if using sim, make sure sim_node.py is running. And that sim=true in the config of the jupyter notebook.
 
 **Configure:**
+Make sure the port is correct in the .yaml file.
 
 ```json
 {
@@ -273,36 +270,23 @@ Now run the jupyter notebook and send it to [0,0,0,...] if it goes straight up t
 
 ---
 
-<!--
-## 13. Maintenance
-
-| Interval   | Task               | Details                 |
-| ---------- | ------------------ | ----------------------- |
-| Before use | Visual inspection  | Check fasteners, cables |
-| Monthly    | Lubricate bearings | <Type/amount>           |
-| Quarterly  | Firmware update    | Backup configs first    |
-
---- -->
-
 ## 13. Troubleshooting
 
-| Symptom        | Possible Causes            | Fix                       |
-| -------------- | -------------------------- | ------------------------- |
-| Won’t power on | PSU off, fuse blown        | Check mains, replace fuse |
-| Jittery motion | Loose set screw, wrong PID | Tighten, re-tune PID      |
-| Overheating    | Fan blocked                | Clean vents               |
-
-> 🧪 **Diagnostics:** `tools/diagnose.sh` prints live status.
+| Symptom          | Possible Causes                     | Fix             |
+| ---------------- | ----------------------------------- | --------------- |
+| Won’t power on   | 12V Cable Not Plugged in            | Plug it in      |
+| Jittery motion   | Cyclodial disks not correct size    | Reprint to size |
+| Massive Backlash | Plastic could have worn and snapped | Reprint parts   |
 
 ---
 
 ## 14. FAQ
 
-**Q:** Can I use a 24 V PSU?  
-**A:** Yes, range 12–24 V; see [Specifications](#5-specifications).
+**Q:**
+**A:**
 
-**Q:** Warranty duration?  
-**A:** <12 months> from purchase.
+**Q:**
+**A:**
 
 ---
 
