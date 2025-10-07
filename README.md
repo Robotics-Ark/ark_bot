@@ -31,7 +31,6 @@
 - [13. Troubleshooting](#13-troubleshooting)
 - [14. FAQ](#14-faq)
 
-- [15. Revision History](#15-revision-history)  
 
 ---
 
@@ -48,7 +47,7 @@ The ArkBot is a pick-and-place robotic arm designed to be affordable and easy to
       <img src="assets/zeropos.png" alt="Cover Image" title="Cover Image" width="40%">
     </td>
     <td align="center" style="border: none;">
-      <img src="assets/tempzerosim.png" alt="Cover Image" title="Cover Image" width="100%">
+      <img src="assets/tempzerosim.png" alt="Cover Image" title="Cover Image" width="40%">
     </td>
   </tr>
 </table>
@@ -289,10 +288,4 @@ Now run the jupyter notebook and send it to [0,0,0,...] if it goes straight up t
 
 ---
 
-## 15. Revision History
 
-| Version | Date       | Changes         | Author         |
-| ------- | ---------- | --------------- | -------------- |
-| v1.0.0  | 2024-10-06 | Initial release | Harry Warriner |
-
----
