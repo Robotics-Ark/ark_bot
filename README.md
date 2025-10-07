@@ -45,7 +45,7 @@ The ArkBot is a pick-and-place robotic arm designed to be affordable and easy to
 <table align="center">
   <tr>
     <td align="center" style="border: none;">
-      <img src="assets/zeropos.png" alt="Cover Image" title="Cover Image" width="15%">
+      <img src="assets/zeropos.png" alt="Cover Image" title="Cover Image" width="40%">
     </td>
     <td align="center" style="border: none;">
       <img src="assets/tempzerosim.png" alt="Cover Image" title="Cover Image" width="100%">
@@ -63,7 +63,7 @@ The ArkBot is a pick-and-place robotic arm designed to be affordable and easy to
 <td >
   <img src="assets/TPUGripper.gif" width="100%" alt="TPU Gripper Example" />
 </td>
-<td ><img src="assets/shortIK.gif" width="80%" alt="Short IK Example"/></td>
+<td ><img src="assets/shortIK.gif" width="100%" alt="Short IK Example"/></td>
 
 </tr>
 </table>
