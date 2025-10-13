@@ -179,7 +179,13 @@ The better the fit the more accurate the final positioning will be.
 
 > ⏱ **Total time:** <estimate, 120 minutes>  
 > 🧰 **Skill level:** Intermediate
+<div align="center">
+  
+[![Assembly](https://img.youtube.com/vi/Kuk4pC0EaEw/0.jpg)](https://www.youtube.com/watch?v=Kuk4pC0EaEw)
 
+If clicking the above video did not work, click [here](https://www.youtube.com/watch?v=Kuk4pC0EaEw)
+
+</div>
 ---
 
 ## 9. Motor Configuration
